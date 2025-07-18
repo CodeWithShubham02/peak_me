@@ -1,0 +1,24 @@
+[debug] [2025-07-12T05:04:09.670Z] ----------------------------------------------------------------------
+[debug] [2025-07-12T05:04:09.673Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Developer\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js apps:create android project2 (android) --package-name=com.example.project2 --json --project=bizipac-6bb00
+[debug] [2025-07-12T05:04:09.673Z] CLI Version:   14.10.1
+[debug] [2025-07-12T05:04:09.674Z] Platform:      win32
+[debug] [2025-07-12T05:04:09.674Z] Node Version:  v22.17.0
+[debug] [2025-07-12T05:04:09.674Z] Time:          Sat Jul 12 2025 10:34:09 GMT+0530 (India Standard Time)
+[debug] [2025-07-12T05:04:09.674Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-07-12T05:04:09.678Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-07-12T05:04:09.679Z] > authorizing via signed-in user (shubhamcmp695@gmail.com)
+[info] Create your ANDROID app in project bizipac-6bb00:
+[debug] [2025-07-12T05:04:09.686Z] Checked if tokens are valid: true, expires at: 1752300189183
+[debug] [2025-07-12T05:04:09.686Z] Checked if tokens are valid: true, expires at: 1752300189183
+[debug] [2025-07-12T05:04:09.688Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1beta1/projects/bizipac-6bb00/androidApps [none]
+[debug] [2025-07-12T05:04:09.688Z] >>> [apiv2][body] POST https://firebase.googleapis.com/v1beta1/projects/bizipac-6bb00/androidApps {"displayName":"project2 (android)","packageName":"com.example.project2"}
+[debug] [2025-07-12T05:04:10.111Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1beta1/projects/bizipac-6bb00/androidApps 429
+[debug] [2025-07-12T05:04:10.112Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1beta1/projects/bizipac-6bb00/androidApps {"error":{"code":429,"message":"Quota exceeded for quota metric 'Provision requests' and limit 'Provision requests per minute' of service 'firebase.googleapis.com' for consumer 'project_number:563584335869'.","status":"RESOURCE_EXHAUSTED","details":[{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"RATE_LIMIT_EXCEEDED","domain":"googleapis.com","metadata":{"service":"firebase.googleapis.com","quota_location":"global","quota_limit":"ProvisionPerMinutePerProject","quota_metric":"firebase.googleapis.com/provision_requests","quota_limit_value":"60","consumer":"projects/563584335869","quota_unit":"1/min/{project}"}},{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Request a higher quota limit.","url":"https://cloud.google.com/docs/quotas/help/request_increase"}]}]}}
+[debug] [2025-07-12T05:04:10.113Z] Request to https://firebase.googleapis.com/v1beta1/projects/bizipac-6bb00/androidApps had HTTP Error: 429, Quota exceeded for quota metric 'Provision requests' and limit 'Provision requests per minute' of service 'firebase.googleapis.com' for consumer 'project_number:563584335869'.
+[debug] [2025-07-12T05:04:10.379Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/bizipac-6bb00/androidApps had HTTP Error: 429, Quota exceeded for quota metric 'Provision requests' and limit 'Provision requests per minute' of service 'firebase.googleapis.com' for consumer 'project_number:563584335869'.
+    at responseToError (C:\Users\Developer\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:52:12)
+    at RetryOperation._fn (C:\Users\Developer\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:312:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: Failed to create Android app for project bizipac-6bb00. See firebase-debug.log for more info.

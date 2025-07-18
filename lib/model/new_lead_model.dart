@@ -1,0 +1,52 @@
+class Lead {
+  final String customerName;
+  final String mobile;
+  final String location;
+  final String leadDate;
+  final String apptime;
+  final String pincode;
+  final String offAddress;
+  final String offPincode;
+  final String resAddress;
+  final String clientname;
+  final String leadId;
+  final String leadType;
+  final String amzAppId;
+  final String clientId;
+
+  Lead({
+    required this.customerName,
+    required this.mobile,
+    required this.location,
+    required this.leadDate,
+    required this.apptime,
+    required this.pincode,
+    required this.offAddress,
+    required this.offPincode,
+    required this.resAddress,
+    required this.clientname,
+    required this.leadId,
+    required this.leadType,
+    required this.amzAppId,
+    required this.clientId,
+  });
+
+  factory Lead.fromJson(Map<String, dynamic> json) {
+    return Lead(
+      customerName: json['customer_name'],
+      mobile: json['mobile'],
+      location: json['location'],
+      leadDate: json['lead_date'],
+      apptime: json['apptime'],
+      pincode: json['pincode'],
+      offAddress: json['off_address'],
+      offPincode: json['off_pincode'],
+      resAddress: json['res_address'],
+      clientname: json['clientname'],
+      leadId: json['lead_id'],
+      leadType: json['lead_type'],
+      amzAppId: json['AMZAppId'],
+      clientId: json['client_id'],
+    );
+  }
+}
