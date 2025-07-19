@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:project2/controller/lead_detail_controller.dart';
 import 'package:project2/model/lead_detail_model.dart';
 import 'package:project2/model/new_lead_model.dart';
+import 'package:project2/view/postponed_lead_screen.dart';
 import 'package:project2/view/refix_lead_screen.dart';
 
 import '../utils/app_constant.dart';
@@ -131,7 +132,9 @@ class _LeadDetailScreenState extends State<LeadDetailScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ElevatedButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Get.to(()=>PostponeLeadScreen(leadId:lead.leadId.toString(),customer_name:lead.customerName.toString(),location:lead.location));
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppConstant.appInsideColor,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

@@ -26,6 +26,7 @@ class _RefixLeadScreenState extends State<RefixLeadScreen> {
   //fetch reason start code
   List<ReasonItem> reasons = [];
   String? selectedReason;
+  final TextEditingController remark=TextEditingController();
   void loadReasons() async {
     try {
       final fetchedReasons = await ReasonService.fetchReasons(widget.leadId);
@@ -247,6 +248,7 @@ class _RefixLeadScreenState extends State<RefixLeadScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
+                controller: remark,
                 decoration: InputDecoration(
                   hint: Text("Enter here remark?"),
                   border: OutlineInputBorder()
@@ -281,7 +283,7 @@ class _RefixLeadScreenState extends State<RefixLeadScreen> {
                   newTime: selectedTimeslot ?? "",
                   location: _location,
                   reason: selectedReason!,
-                  remark: "Your remark here", // could be controller.text
+                  remark: remark.toString(), // could be controller.text
                   // You can fetch GPS if needed
                 );
 
@@ -294,7 +296,7 @@ class _RefixLeadScreenState extends State<RefixLeadScreen> {
 
         },
             style: ElevatedButton.styleFrom(
-              backgroundColor:_location==''?Colors.grey:AppConstant.appInsideColor,
+              backgroundColor:AppConstant.appInsideColor,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(1)),
             ),
             child: Center(
