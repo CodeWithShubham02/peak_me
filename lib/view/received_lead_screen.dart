@@ -24,7 +24,7 @@ class _ReceivedLeadScreenState extends State<ReceivedLeadScreen> {
 
   ReceivedLeadController receivedLeadController=ReceivedLeadController();
   late Future<List<Lead>> leads;
-  late var total='';
+  late String total='';
 
   String uid = '';
   String branchId = '';
@@ -68,11 +68,12 @@ class _ReceivedLeadScreenState extends State<ReceivedLeadScreen> {
   @override
   Widget build(BuildContext context) {
     print("Shubham UID :${total.toString()}");
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor:AppConstant.appInsideColor,
         title: Text('Lead Received ${total.toString()}',style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),),
-
+          iconTheme: IconThemeData(color: Colors.white)
       ),
       body:leads == null
           ? const Center(child: CircularProgressIndicator())
@@ -96,6 +97,7 @@ class _ReceivedLeadScreenState extends State<ReceivedLeadScreen> {
               itemCount: leadsList.length,
               itemBuilder: (context, index) {
                 final lead = leadsList[index];
+                
                 total=leadsList.length.toString();
                 return Card(
                   color: Colors.white70,
@@ -123,15 +125,15 @@ class _ReceivedLeadScreenState extends State<ReceivedLeadScreen> {
                         Divider(),
                         Row(
                           children: [
-                             CircleAvatar(
-                                 backgroundColor:AppConstant.appInsideColor,
-                                 child: Icon(
-                                     Icons.store,  color:Colors.white,
-                                 ),
-                             ),
-                            const SizedBox(width: 8),
-                            Text(lead.clientname.toUpperCase(),  overflow: TextOverflow.ellipsis,style: const TextStyle(fontSize: 14)),
-                            const Spacer(),
+                            CircleAvatar(backgroundColor:AppConstant.appInsideColor,child: Icon(Icons.location_on, color:Colors.white)),
+                            SizedBox(width: 10),
+                            Expanded( // Fixes overflow
+                              child: Text(
+                                lead.clientname,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                              ),
+                            ),
                             Text("N/A", style: const TextStyle(color: Colors.grey)),
                           ],
                         ),
@@ -159,7 +161,7 @@ class _ReceivedLeadScreenState extends State<ReceivedLeadScreen> {
                               child: Text(
                                 lead.resAddress,
                                 overflow: TextOverflow.ellipsis,
-                                maxLines: 3,
+                                maxLines: 4,
                               ),
                             ),
 
@@ -169,6 +171,7 @@ class _ReceivedLeadScreenState extends State<ReceivedLeadScreen> {
                         ElevatedButton(
                           onPressed: () {
                            // Get.snackbar("Name", lead.customerName);
+
                             Get.to(()=>LeadDetailScreen(lead:lead));
                           },
                           style: ElevatedButton.styleFrom(

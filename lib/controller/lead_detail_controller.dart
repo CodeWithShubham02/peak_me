@@ -14,6 +14,7 @@ class LeadDetailsController{
       print(response.body);
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
+
         return LeadResponse.fromJson(jsonData);
       } else {
         print("Server error: ${response.statusCode}");

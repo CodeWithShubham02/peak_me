@@ -41,7 +41,6 @@ class AuthService {
         final Map<String, dynamic> data = json.decode(response.body);
         if (data['success'] == 1 && data['data'] != null) {
           final user = UserModel.fromJson(data['data'][0]);
-
             final SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.setString('uid', user.uid);
             await prefs.setString('name', user.name);

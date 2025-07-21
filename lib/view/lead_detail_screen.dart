@@ -32,7 +32,7 @@ class _LeadDetailScreenState extends State<LeadDetailScreen> {
       appBar: AppBar(
         backgroundColor:AppConstant.appInsideColor,
         title: Text('Lead Details ',style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),),
-
+          iconTheme: IconThemeData(color: Colors.white),
       ),
       body: FutureBuilder<LeadResponse?>(
       future: _futureLead,

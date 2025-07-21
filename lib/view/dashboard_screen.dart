@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:project2/utils/app_constant.dart';
 import 'package:project2/view/auth/login.dart';
 import 'package:project2/view/received_lead_screen.dart';
+import 'package:project2/view/search_lead_screen.dart';
 import 'package:project2/view/today_transferd_lead_screen.dart';
 import 'package:project2/view/widget/drawer_widget.dart';
 import 'package:project2/view/profile_screen.dart';
@@ -44,6 +45,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.white),
         backgroundColor:Color(0xFF043feb),
         title: Text("Peak Me",style: TextStyle(color: Colors.white),),
         actions: [
@@ -87,8 +89,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
-                      height: 140,
-                      width: 140,
+                      height: 100,
+                      width: 150,
                       decoration: BoxDecoration(
                         color:  Color(0xFFCCE5FF),
                         borderRadius: BorderRadius.circular(20),
@@ -108,7 +110,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.dashboard, size: 40, color: Colors.black87),
+                            Icon(Icons.dashboard, size: 30, color: Colors.black87),
                             SizedBox(height: 12),
                             Text(
                               "Received All Lead",
@@ -123,8 +125,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ),
                     ),
                     Container(
-                      height: 140,
-                      width: 140,
+                      height: 100,
+                      width: 150,
                       decoration: BoxDecoration(
                         color: Color(0xFFCCE5FF),
                         borderRadius: BorderRadius.circular(20),
@@ -140,7 +142,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.transfer_within_a_station_outlined, size: 40, color: Colors.black87),
+                          Icon(Icons.transfer_within_a_station_outlined, size: 30, color: Colors.black87),
                           SizedBox(height: 12),
                           Text(
                             "Transfer Lead",
@@ -160,8 +162,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
-                      height: 140,
-                      width: 140,
+                      height: 100,
+                      width: 150,
                       decoration: BoxDecoration(
                         color: Color(0xFFCCE5FF),
                         borderRadius: BorderRadius.circular(20),
@@ -174,25 +176,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ],
                       ),
                       padding: EdgeInsets.all(16),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.search, size: 40, color: Colors.black87),
-                          SizedBox(height: 12),
-                          Text(
-                            "Search Lead",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12,
+                      child: InkWell(
+                        onTap: (){
+                          Get.to(()=>SearchLeadScreen());
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.search, size: 30, color: Colors.black87),
+                            SizedBox(height: 12),
+                            Text(
+                              "Search Lead",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 12,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     Container(
-                      height: 140,
-                      width: 140,
+                      height: 100,
+                      width: 150,
                       decoration: BoxDecoration(
                         color:  Color(0xFFCCE5FF),
                         borderRadius: BorderRadius.circular(20),
@@ -208,14 +215,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.card_travel_outlined, size: 40, color: Colors.black87),
-                          SizedBox(height: 12),
+                          Icon(Icons.card_travel_outlined, size: 22, color: Colors.black87),
+                          SizedBox(height: 10),
                           Text(
                             "Onfield Prepaid \n Card",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
-                              fontSize: 12,
+                              fontSize: 11,
                             ),
                           ),
                         ],
@@ -228,8 +235,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
-                      height: 140,
-                      width: 140,
+                      height: 100,
+                      width: 150,
                       decoration: BoxDecoration(
                         color:  Color(0xFFCCE5FF),
                         borderRadius: BorderRadius.circular(20),
@@ -245,22 +252,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.collections, size: 40, color: Colors.black87),
-                          SizedBox(height: 12),
+                          Icon(Icons.file_copy_outlined, size: 22, color: Colors.black87),
+                          SizedBox(height: 10),
                           Text(
                             "Today's Collected Lead",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
-                              fontSize: 12,
+                              fontSize: 11,
                             ),
                           ),
                         ],
                       ),
                     ),
                     Container(
-                      height: 140,
-                      width: 140,
+                      height: 100,
+                      width: 150,
                       decoration: BoxDecoration(
                         color:  Color(0xFFCCE5FF),
                         borderRadius: BorderRadius.circular(20),
@@ -280,14 +287,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.transfer_within_a_station_outlined, size: 40, color: Colors.black87),
-                            SizedBox(height: 12),
+                            Icon(Icons.transfer_within_a_station_outlined, size: 22, color: Colors.black87),
+                            SizedBox(height: 10),
                             Text(
                               "Today's Transfer Lead",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize: 12,
+                                fontSize: 11,
                               ),
                             ),
                           ],
@@ -301,8 +308,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
-                      height: 140,
-                      width: 140,
+                      height: 100,
+                      width: 150,
                       decoration: BoxDecoration(
                         color:  Color(0xFFCCE5FF),
                         borderRadius: BorderRadius.circular(20),
@@ -322,7 +329,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.person, size: 40, color: Colors.black87),
+                            Icon(Icons.person, size: 30, color: Colors.black87),
                             SizedBox(height: 12),
                             Text(
                               "Profile",

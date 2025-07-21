@@ -50,7 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         backgroundColor:AppConstant.appInsideColor,
         title: const Text('Profile',style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),),
-
+          iconTheme: IconThemeData(color: Colors.white),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),

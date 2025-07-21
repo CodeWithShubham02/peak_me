@@ -14,6 +14,24 @@ class AdminDrawerWidget extends StatefulWidget {
 }
 
 class _AdminDrawerWidgetState extends State<AdminDrawerWidget> {
+  String name = '';
+  String mobile = '';
+  String uid='';
+
+  void loadUserData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      name = prefs.getString('name') ?? '';
+      mobile = prefs.getString('mobile') ?? '';
+      uid = prefs.getString('uid') ?? '';
+    });
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadUserData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +48,11 @@ class _AdminDrawerWidgetState extends State<AdminDrawerWidget> {
               padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 10.0),
               child: ListTile(
                 titleAlignment: ListTileTitleAlignment.center,
-                title: Text("Shubham Gupta"),
+                title: Text(name),
                 leading: CircleAvatar(
-                  child: Text("S",style: TextStyle(color: Colors.white),),
+                  child: Icon(Icons.person),
                 ),
+                subtitle: Text(mobile),
 
               ),
             ),
@@ -58,8 +77,8 @@ class _AdminDrawerWidgetState extends State<AdminDrawerWidget> {
                  // Get.to(()=>LeadScreen());
                 },
                 titleAlignment: ListTileTitleAlignment.center,
-                title: Text("Self Lead Alloter"),
-                leading: Icon(Icons.home),
+                title: Text("Transfer Lead"),
+                leading: Icon(Icons.transfer_within_a_station_outlined),
 
               ),
 
@@ -68,8 +87,8 @@ class _AdminDrawerWidgetState extends State<AdminDrawerWidget> {
                   //Get.to(()=>AllUsersScreen());
                 },
                 titleAlignment: ListTileTitleAlignment.center,
-                title: Text("Received Lead"),
-                leading: Icon(Icons.person),
+                title: Text("Search Lead"),
+                leading: Icon(Icons.search_rounded),
 
               ),
             ListTile(
@@ -77,25 +96,16 @@ class _AdminDrawerWidgetState extends State<AdminDrawerWidget> {
                 //Get.to(()=>AllUsersScreen());
               },
               titleAlignment: ListTileTitleAlignment.center,
-              title: Text("Received Lead"),
-              leading: Icon(Icons.person),
+              title: Text("Onfield Prepaid Card"),
+              leading: Icon(Icons.transfer_within_a_station),
             ),
             ListTile(
               onTap: (){
                 //Get.to(()=>AllUsersScreen());
               },
               titleAlignment: ListTileTitleAlignment.center,
-              title: Text("Received Lead"),
-              leading: Icon(Icons.person),
-
-            ),
-            ListTile(
-              onTap: (){
-                //Get.to(()=>AllUsersScreen());
-              },
-              titleAlignment: ListTileTitleAlignment.center,
-              title: Text("Received Lead"),
-              leading: Icon(Icons.person),
+              title: Text("Today Collected Lead"),
+              leading: Icon(Icons.file_copy_outlined),
 
             ),
             ListTile(
@@ -103,8 +113,8 @@ class _AdminDrawerWidgetState extends State<AdminDrawerWidget> {
                 //Get.to(()=>AllUsersScreen());
               },
               titleAlignment: ListTileTitleAlignment.center,
-              title: Text("Received Lead"),
-              leading: Icon(Icons.person),
+              title: Text("Today's Transfer Lead"),
+              leading: Icon(Icons.transfer_within_a_station),
 
             ),
             ListTile(
@@ -112,22 +122,18 @@ class _AdminDrawerWidgetState extends State<AdminDrawerWidget> {
                 //Get.to(()=>AllUsersScreen());
               },
               titleAlignment: ListTileTitleAlignment.center,
-              title: Text("Received Lead"),
+              title: Text("Profile"),
               leading: Icon(Icons.person),
 
             ),
             ListTile(
-              onTap: ()async {
-
-
-
+              onTap: (){
+                //Get.to(()=>AllUsersScreen());
               },
               titleAlignment: ListTileTitleAlignment.center,
               title: Text("Logout"),
-              leading: Icon(Icons.person),
-
+              leading: Icon(Icons.logout_outlined),
             ),
-
           ],
         ),
         backgroundColor:Colors.white,

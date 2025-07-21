@@ -57,12 +57,10 @@ class _PostponeLeadScreenState extends State<PostponeLeadScreen> {
   }
   @override
   void initState() {
-
     super.initState();
     setCurrentDate();
     loadReasons();
     loadUserData();
-
   }
   @override
   Widget build(BuildContext context) {
@@ -73,6 +71,7 @@ class _PostponeLeadScreenState extends State<PostponeLeadScreen> {
         title:  Text(widget.customer_name.toString(),
           style: TextStyle(color: Colors.white,fontSize: 17),
         ),
+          iconTheme: IconThemeData(color: Colors.white),
       ),
       body:SingleChildScrollView(
         child: Column(
@@ -83,7 +82,6 @@ class _PostponeLeadScreenState extends State<PostponeLeadScreen> {
             Text(uid.toString()),
             Text(currentDate.toString()),
             Text(currentTime.toString()),
-
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text('Select reason for Refix Appointment : *',style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.bold,fontFamily: 'RaleWay'),),
@@ -95,14 +93,12 @@ class _PostponeLeadScreenState extends State<PostponeLeadScreen> {
                 children: [
                   Expanded(
                     child: DropdownButtonFormField<String>(
-
                       hint: Text('Select Reason',style: TextStyle(fontSize: 14,fontWeight: FontWeight.normal),),
                       value: selectedReason,
                       items: reasons.map((item) {
                         return DropdownMenuItem<String>(
                           value: item.reason,
                           child: Text(item.reason,style: TextStyle(fontSize: 11.5,color: Colors.black,fontWeight: FontWeight.bold),),
-
                         );
                       }).toList(),
                       onChanged: (value) {
@@ -111,10 +107,7 @@ class _PostponeLeadScreenState extends State<PostponeLeadScreen> {
                         });
                       },
                       decoration:  InputDecoration(
-
-
-                        border: OutlineInputBorder(
-                        ),
+                        border: OutlineInputBorder(),
                       ),
                     ),
                   ),
@@ -159,7 +152,6 @@ class _PostponeLeadScreenState extends State<PostponeLeadScreen> {
                     newDate: currentDate,
                     newTime:currentTime,
                   );
-
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(result.message)),
 

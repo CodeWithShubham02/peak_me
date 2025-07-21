@@ -98,6 +98,7 @@ class _RefixLeadScreenState extends State<RefixLeadScreen> {
           title:  Text(widget.customer_name.toString(),
             style: TextStyle(color: Colors.white,fontSize: 17),
           ),
+          iconTheme: IconThemeData(color: Colors.white),
       ),
       body:SingleChildScrollView(
         child: Column(
