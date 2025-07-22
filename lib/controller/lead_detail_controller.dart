@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:project2/model/lead_detail_model.dart';
 
+import '../handler/EncryptionHandler.dart';
+
 class LeadDetailsController{
 
   static Future<LeadResponse?> fetchLeadById(String leadId) async {
@@ -11,9 +13,15 @@ class LeadDetailsController{
     try {
       final response = await http.get(url);
       print('--------Lead details----------');
-      print(response.body);
+      final ecryptedResponse = EncryptionHelper.encryptData(response.body);
+      print('--------Encrypted Response---------');
+      print(ecryptedResponse);
       if (response.statusCode == 200) {
-        final jsonData = json.decode(response.body);
+        final decryptedResponse = EncryptionHelper.decryptData(ecryptedResponse);
+
+        print('--------Decrypted Response---------');
+        print(decryptedResponse);
+        final jsonData = json.decode(decryptedResponse);
 
         return LeadResponse.fromJson(jsonData);
       } else {

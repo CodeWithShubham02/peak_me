@@ -10,6 +10,7 @@ import 'package:project2/model/new_lead_model.dart';
 import 'package:project2/view/dashboard_screen.dart';
 import 'package:project2/view/lead_detail_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../utils/app_constant.dart';
 
@@ -24,6 +25,7 @@ class _ReceivedLeadScreenState extends State<ReceivedLeadScreen> {
 
   ReceivedLeadController receivedLeadController=ReceivedLeadController();
   late Future<List<Lead>> leads;
+
   late String total='';
 
   String uid = '';
@@ -43,7 +45,14 @@ class _ReceivedLeadScreenState extends State<ReceivedLeadScreen> {
   }
 
 
-
+  void launchCaller(String number) async {
+    final Uri callUri = Uri(scheme: 'tel', path: number);
+    if (await canLaunchUrl(callUri)) {
+      await launchUrl(callUri);
+    } else {
+      print('Could not launch call');
+    }
+  }
 
   @override
   void initState() {
@@ -58,7 +67,7 @@ class _ReceivedLeadScreenState extends State<ReceivedLeadScreen> {
           start: 0,
           end: 10,
           branchId: branchId,
-          appVersion: appVersion,
+          appVersion: '40',
           appType: appType,
         );
       });
@@ -119,7 +128,12 @@ class _ReceivedLeadScreenState extends State<ReceivedLeadScreen> {
                             ),
                             CircleAvatar(
                                 backgroundColor: AppConstant.appInsideColor,
-                                child: IconButton(onPressed: (){}, icon: Icon(Icons.call,color: AppConstant.appTextColor,)))
+                                child: IconButton(onPressed: (){
+                                  print('hello');
+                                  // Step 1: Launch phone call
+                                  launchCaller(lead.mobile);
+                                  print('hello');
+                                }, icon: Icon(Icons.call,color: AppConstant.appTextColor,)))
                           ],
                         ),
                         Divider(),

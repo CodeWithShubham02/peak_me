@@ -10,6 +10,8 @@ import 'package:project2/view/widget/drawer_widget.dart';
 import 'package:project2/view/profile_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../demo_screen.dart';
+
 
 class DashboardScreen extends StatefulWidget {
 
@@ -38,6 +40,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     // TODO: implement initState
     super.initState();
     loadUserData();
+
   }
 
 
@@ -212,20 +215,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ],
                       ),
                       padding: EdgeInsets.all(16),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.card_travel_outlined, size: 22, color: Colors.black87),
-                          SizedBox(height: 10),
-                          Text(
-                            "Onfield Prepaid \n Card",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 11,
+                      child: InkWell(
+                        onTap: (){
+                          Get.to(()=>ImeiScreen());
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.card_travel_outlined, size: 22, color: Colors.black87),
+                            SizedBox(height: 10),
+                            Text(
+                              "Onfield Prepaid \n Card",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 11,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],

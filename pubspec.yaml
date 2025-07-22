@@ -50,6 +50,8 @@ dependencies:
   shared_preferences: ^2.5.3
   flutter_riverpod: ^2.6.1
   package_info_plus: ^8.3.0
+  encrypt: ^5.0.3
+  url_launcher:
 
 
 dev_dependencies:
