@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controller/lead_detail_controller.dart';
 import '../model/lead_detail_model.dart';
@@ -14,10 +15,19 @@ class SearchLeadScreen extends StatefulWidget {
 class _SearchLeadScreenState extends State<SearchLeadScreen> {
   late String? leadid="";
   Future<LeadResponse?>? _futureLead;
+
+  String branchId = '';
+  String uid='';
+  Future<void> loadUserData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    uid = prefs.getString('uid') ?? '';
+    branchId= prefs.getString('branchId')?? '';
+  }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    loadUserData();
 
   }
   @override
@@ -35,11 +45,13 @@ class _SearchLeadScreenState extends State<SearchLeadScreen> {
           children: [
             Column(
               children: [
+                Text("Mobile : ${uid.toString() + branchId.toString()}"),
                 SizedBox(height: 16),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
                     keyboardType: TextInputType.number,
+                    maxLength: 10,
                     onChanged: (value){
                      leadid=value;
                     },
@@ -54,7 +66,19 @@ class _SearchLeadScreenState extends State<SearchLeadScreen> {
                       labelText: 'Enter leadId..',
                       suffixIcon: IconButton(onPressed: (){
                         setState(() {
-                          _futureLead = LeadDetailsController.fetchLeadById(leadid.toString());
+                          if(leadid != null){
+                            if(leadid?.length==7){
+                              _futureLead = LeadDetailsController.fetchLeadById(leadid.toString());
+                            }else{
+                              print("user uid : ${branchId+uid}");
+                              print("hello ssg");
+                            }
+
+                          }else{
+                           // print("Mobile no : ${leadid}");
+                          }
+
+
                         });
                       }, icon: Icon(Icons.search)),
                       border: OutlineInputBorder(),

@@ -25,6 +25,7 @@ class _LeadDetailScreenState extends State<LeadDetailScreen> {
     // TODO: implement initState
     super.initState();
     _futureLead = LeadDetailsController.fetchLeadById(widget.lead.leadId);
+
   }
   @override
   Widget build(BuildContext context) {

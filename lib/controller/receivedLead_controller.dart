@@ -20,18 +20,15 @@ class ReceivedLeadController{
     final url = Uri.parse('https://fms.bizipac.com/ws/new_lead.php?uid=$uid&start=$start&end=$end&branch_id=$branchId&app_version=$appVersion&app_type=$appType');
 
     final response = await http.get(url);
-    final ecryptedResponse = EncryptionHelper.encryptData(response.body);
     print('--------Encrypted Response---------');
-    print(ecryptedResponse);
+   // print(ecryptedResponse);
     if (response.statusCode == 200) {
-      final decryptedResponse = EncryptionHelper.decryptData(ecryptedResponse);
-
       print('--------Decrypted Response---------');
-      print(decryptedResponse);
-      final jsonBody = json.decode(decryptedResponse);
+      print(response.body);
+      final jsonBody = json.decode(response.body);
       if (jsonBody['success'] == 1) {
         final List<dynamic> leadsJson = jsonBody['data'];
-
+        //return Lead.fromJson(json, key)
         return leadsJson.map((json) => Lead.fromJson(json)).toList();
       } else {
         throw Exception('Server Error: ${jsonBody['message']}');

@@ -13,15 +13,15 @@ class LeadDetailsController{
     try {
       final response = await http.get(url);
       print('--------Lead details----------');
-      final ecryptedResponse = EncryptionHelper.encryptData(response.body);
+     // final ecryptedResponse = EncryptionHelper.encryptData(response.body);
       print('--------Encrypted Response---------');
-      print(ecryptedResponse);
+     // print(ecryptedResponse);
       if (response.statusCode == 200) {
-        final decryptedResponse = EncryptionHelper.decryptData(ecryptedResponse);
+       // final decryptedResponse = EncryptionHelper.decryptData(ecryptedResponse);
 
         print('--------Decrypted Response---------');
-        print(decryptedResponse);
-        final jsonData = json.decode(decryptedResponse);
+        print(response.body);
+        final jsonData = json.decode(response.body);
 
         return LeadResponse.fromJson(jsonData);
       } else {

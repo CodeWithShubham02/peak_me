@@ -3,12 +3,16 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:project2/controller/getlead_controller.dart';
 import 'package:project2/utils/app_constant.dart';
+import 'package:project2/view/lead_detail_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'handler/EncryptionHandler.dart';
 import 'model/new_lead_model.dart';
 
 class ImeiScreen extends StatefulWidget {
@@ -18,7 +22,7 @@ class ImeiScreen extends StatefulWidget {
 
 class _ImeiScreenState extends State<ImeiScreen> {
 
-  ReceivedAllLeadController receivedAllLeadController=ReceivedAllLeadController();
+  LeadReceivedController receivedAllLeadController=LeadReceivedController();
   late Future<List<Lead>> leads;
 
   late String total='';
@@ -51,7 +55,7 @@ class _ImeiScreenState extends State<ImeiScreen> {
     //loadUserData();
     loadUserData().then((_) {
       setState(() {
-        leads = receivedAllLeadController.fetchLeads(
+        leads =receivedAllLeadController.fetchLeads(
           uid: uid,
           start: 0,
           end: 10,
@@ -95,7 +99,9 @@ class _ImeiScreenState extends State<ImeiScreen> {
               itemBuilder: (context, index) {
                 final lead = leadsList[index];
 
-                total=leadsList.length.toString();
+                //total=leadsList.length.toString();
+                // final decryptedResponse = EncryptionHelper.decryptData(lead.customerName);
+                // print(decryptedResponse);
                 return Card(
                   color: Colors.white70,
                   elevation: 2,
@@ -111,7 +117,7 @@ class _ImeiScreenState extends State<ImeiScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              lead.customerName.toUpperCase() ?? '',
+                              lead.customerName ?? '',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             CircleAvatar(
@@ -169,7 +175,7 @@ class _ImeiScreenState extends State<ImeiScreen> {
                           onPressed: () {
                             // Get.snackbar("Name", lead.customerName);
 
-                           // Get.to(()=>LeadDetailScreen(lead:lead));
+                            Get.to(()=>LeadDetailScreen(lead:lead));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppConstant.appInsideColor,

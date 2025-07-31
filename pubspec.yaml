@@ -52,6 +52,7 @@ dependencies:
   package_info_plus: ^8.3.0
   encrypt: ^5.0.3
   url_launcher:
+  crypto:
 
 
 dev_dependencies:

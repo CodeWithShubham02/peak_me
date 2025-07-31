@@ -1,11 +1,11 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 import '../handler/EncryptionHandler.dart';
 import '../model/new_lead_model.dart';
 
-
-class ReceivedAllLeadController {
+class LeadReceivedController {
   Future<List<Lead>> fetchLeads({
     required String uid,
     required int start,
@@ -14,55 +14,38 @@ class ReceivedAllLeadController {
     required String app_version,
     required String appType,
   }) async {
+    final String apiUrl =
+        'https://fms.bizipac.com/apinew/ws_new/new_lead.php?uid=$uid&start=$start&end=$end&branch_id=$branchId&app_version=$app_version&app_type=$appType';
 
-    print("Uid : ${uid}");
-    print("start : ${start}");
-    print("end : ${end}");
-    print("branchId : ${branchId}");
-    print("app_version : ${app_version}");
-    print("appType : ${appType}");
+    const String HASH_KEY = "QWRTEfnfdys635";
 
-    final encryptedUid = EncryptionHelper.encryptData(uid);
-    final encryptedStart = EncryptionHelper.encryptData(start.toString());
-    final encryptedEnd = EncryptionHelper.encryptData(end.toString());
-    final encryptedBranchId = EncryptionHelper.encryptData(branchId);
-    final encryptedAppVersion = EncryptionHelper.encryptData(app_version);
-    final encryptedAppType = EncryptionHelper.encryptData(appType);
+    final response = await http.get(Uri.parse(apiUrl));
 
-    print('--------Encrypted API Response---------');
-    print(' Uid : ${encryptedUid}+${encryptedStart}+${encryptedEnd}+${encryptedBranchId}+${encryptedAppVersion}+${encryptedAppType}');
+    if (response.statusCode == 200) {
+      print("---------------Encrypt data--------------");
+      print(response.body);
+      final decoded = jsonDecode(response.body);
+      if (decoded['success'] == 1) {
+        List<dynamic> leads = decoded['data'];
+        for (var lead in leads) {
+          lead['customer_name'] = decryptFMS(lead['customer_name'], HASH_KEY);
+          lead['mobile'] = decryptFMS(lead['mobile'], HASH_KEY);
+          if (lead['res_address'] != '') {
+            lead['res_address'] = decryptFMS(lead['res_address'], HASH_KEY);
+          }
 
-    //final url = Uri.parse('https://fms.bizipac.com/ws/new_lead.php?uid=$encryptedUid&start=$encryptedStart&end=$encryptedEnd&branch_id=$encryptedBranchId&app_version=$encryptedAppVersion&app_type=$encryptedAppType');
-
-
-    final url = Uri.parse('https://fms.bizipac.com/ws/new_lead.php?uid=$uid&start=$start&end=$end&branch_id=$branchId&app_version=$app_version&app_type=$appType');
-    final response = await http.get(url);
-
-    // print('-------- API Response Data---------');
-    // print(response.body);
-
-    final ecryptedResponse = EncryptionHelper.encryptData(response.body);
-    print('--------Encrypted Response---------');
-    print(ecryptedResponse);
-
-    print('--------------------------------------');
-    if(response.statusCode == 200) {
-      final decryptedResponse = EncryptionHelper.decryptData(ecryptedResponse);
-
-      print('--------Decrypted Response---------');
-      print(decryptedResponse);
-
-
-      final jsonBody = json.decode(decryptedResponse);
-      //print(jsonBody);
-      if (jsonBody['success'] == 1) {
-        final List<dynamic> leadsJson = jsonBody['data'];
-        return leadsJson.map((json) => Lead.fromJson(json)).toList();
+        }
+        print("---------------decrypt data--------------");
+        print(decoded['clientname']);
+        print(leads.toString());
+        return leads.map((lead) => Lead.fromJson(lead)).toList();
       } else {
-        throw Exception('Server Error: ${jsonBody['message']}');
+        print("error ssg");
+        throw Exception("No data found.");
       }
     } else {
-      throw Exception('Failed to load leads. Status Code: ${response.statusCode}');
+      print("error");
+      throw Exception("Failed to load leads");
     }
   }
 }
