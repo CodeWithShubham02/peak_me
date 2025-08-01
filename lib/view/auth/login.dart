@@ -297,7 +297,7 @@ class _LoginState extends State<Login> {
                 child: Column(
                   children: [
                     Text('Send To :  +91-${userId.toString()}'),
-                   // Text('Send To : - ${newOtp}'),
+                    Text('Send To : - ${newOtp}'),
                     // Text('Token: ${userDiviceToken.toString()}')
                   ],
                 ),

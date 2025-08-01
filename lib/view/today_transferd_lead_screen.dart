@@ -30,9 +30,7 @@ class _TodayTransferredScreenState extends State<TodayTransferredScreen> {
           iconTheme: IconThemeData(color: Colors.white),
           backgroundColor: AppConstant.appInsideColor,
           title: const Text('Today\'s Transfers',style: TextStyle(color: Colors.white),)),
-      body:_future == null
-          ? const Center(child: Text('No Transfer lead.'))
-          :  FutureBuilder<TodayTransferredResponse?>(
+      body: FutureBuilder<TodayTransferredResponse?>(
         future: _future,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -45,11 +43,11 @@ class _TodayTransferredScreenState extends State<TodayTransferredScreen> {
           print('-------SGS');
           print(dataList.toString());
 
-          return dataList!=null?const Center(child: Text('Any lead today not transfer..')): ListView.builder(
+          return  ListView.builder(
             itemCount: dataList.length,
             itemBuilder: (context, index) {
               final item = dataList[index];
-              return  Card(
+              return  item==''?Center(child: Text("no data",style: TextStyle(color: Colors.black),)):Card(
                 elevation: 5,
                 color: Colors.white,
                 margin: const EdgeInsets.all(8),

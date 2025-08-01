@@ -67,7 +67,7 @@ class _ReceivedLeadScreenState extends State<ReceivedLeadScreen> {
           start: 0,
           end: 10,
           branchId: branchId,
-          appVersion: '40',
+          app_version: '40',
           appType: appType,
         );
       });

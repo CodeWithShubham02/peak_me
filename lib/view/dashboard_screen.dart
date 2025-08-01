@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:project2/utils/app_constant.dart';
 import 'package:project2/view/auth/login.dart';
 import 'package:project2/view/received_lead_screen.dart';
 import 'package:project2/view/search_lead_screen.dart';
@@ -142,20 +141,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ],
                       ),
                       padding: EdgeInsets.all(16),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.transfer_within_a_station_outlined, size: 30, color: Colors.black87),
-                          SizedBox(height: 12),
-                          Text(
-                            "Transfer Lead",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12,
+                      child: InkWell(
+                        onTap: (){
+                          Get.snackbar("Working mode...", "coming soon..",
+                            backgroundColor: Colors.white,);
+
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.transfer_within_a_station_outlined, size: 30, color: Colors.black87),
+                            SizedBox(height: 12),
+                            Text(
+                              "Transfer Lead",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 12,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -217,7 +223,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       padding: EdgeInsets.all(16),
                       child: InkWell(
                         onTap: (){
-                          Get.to(()=>ImeiScreen());
+                          Get.snackbar("Working mode...", "coming soon..",
+                          backgroundColor: Colors.white,);
+                         // Get.to(()=>ImeiScreen());
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -257,20 +265,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ],
                       ),
                       padding: EdgeInsets.all(16),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.file_copy_outlined, size: 22, color: Colors.black87),
-                          SizedBox(height: 10),
-                          Text(
-                            "Today's Collected Lead",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 11,
+                      child: InkWell(
+                        onTap: (){
+                          Get.snackbar("Working mode...", "coming soon..",
+                            backgroundColor: Colors.white,);
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.file_copy_outlined, size: 22, color: Colors.black87),
+                            SizedBox(height: 10),
+                            Text(
+                              "Today's Collected Lead",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 11,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     Container(

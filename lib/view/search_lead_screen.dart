@@ -16,12 +16,12 @@ class _SearchLeadScreenState extends State<SearchLeadScreen> {
   late String? leadid="";
   Future<LeadResponse?>? _futureLead;
 
-  String branchId = '';
+  String mobile = '';
   String uid='';
   Future<void> loadUserData() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     uid = prefs.getString('uid') ?? '';
-    branchId= prefs.getString('branchId')?? '';
+    mobile= prefs.getString('mobile')?? '';
   }
   @override
   void initState() {
@@ -45,7 +45,7 @@ class _SearchLeadScreenState extends State<SearchLeadScreen> {
           children: [
             Column(
               children: [
-                Text("Mobile : ${uid.toString() + branchId.toString()}"),
+                Text("Mobile : ${uid.toString() + mobile.toString()}"),
                 SizedBox(height: 16),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -70,7 +70,7 @@ class _SearchLeadScreenState extends State<SearchLeadScreen> {
                             if(leadid?.length==7){
                               _futureLead = LeadDetailsController.fetchLeadById(leadid.toString());
                             }else{
-                              print("user uid : ${branchId+uid}");
+                              print("user uid : ${mobile+uid}");
                               print("hello ssg");
                             }
 

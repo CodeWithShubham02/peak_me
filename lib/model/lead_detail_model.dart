@@ -63,6 +63,7 @@ class LeadData {
   final String formNo;
   final String leadStatus;
   final String clientId;
+  final String client_mobile_app;
   final String email;
   final String productCode;
   final String source2;
@@ -149,6 +150,7 @@ class LeadData {
     required this.formNo,
     required this.leadStatus,
     required this.clientId,
+    required this.client_mobile_app,
     required this.email,
     required this.productCode,
     required this.source2,
@@ -235,6 +237,7 @@ class LeadData {
       formNo: json['form_no'] ?? '',
       leadStatus: json['lead_status'] ?? '',
       clientId: json['client_id'] ?? '',
+      client_mobile_app: json['client_mobile_app'] ?? '',
       email: json['email'] ?? '',
       productCode: json['product_code'] ?? '',
       source2: json['source2'] ?? '',
@@ -321,6 +324,7 @@ class LeadData {
     'form_no': formNo,
     'lead_status': leadStatus,
     'client_id': clientId,
+    'client_mobile_app': client_mobile_app,
     'email': email,
     'product_code': productCode,
     'source2': source2,
