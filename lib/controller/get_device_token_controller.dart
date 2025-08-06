@@ -1,6 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
-import '../utils/app_constant.dart';
+
 
 
 class GetDeviceTokenController extends GetxController{

@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:project2/view/auth/login.dart';
-import 'package:project2/view/received_lead_screen.dart';
-import 'package:project2/view/search_lead_screen.dart';
-import 'package:project2/view/today_transferd_lead_screen.dart';
-import 'package:project2/view/widget/drawer_widget.dart';
-import 'package:project2/view/profile_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:peckme/view/icici_prepaid_card.dart';
+import 'package:peckme/view/profile_screen.dart';
+import 'package:peckme/view/received_lead_screen.dart';
+import 'package:peckme/view/search_lead_screen.dart';
+import 'package:peckme/view/today_transferd_lead_screen.dart';
+import 'package:peckme/view/widget/drawer_widget.dart';
 
-import '../demo_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../utils/app_constant.dart';
+import 'auth/login.dart';
+
+
 
 
 class DashboardScreen extends StatefulWidget {
@@ -25,6 +30,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
   String name = '';
   String mobile = '';
   String uid='';
+  String rolename = '';
+  String roleId = '';
+  String branchId = '';
+  String branch_name='';
+  String authId = '';
+  String image = '';
+  String address = '';
 
   void loadUserData() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -32,7 +44,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
       name = prefs.getString('name') ?? '';
       mobile = prefs.getString('mobile') ?? '';
       uid = prefs.getString('uid') ?? '';
+      rolename = prefs.getString('rolename') ?? '';
+      roleId = prefs.getString('roleId') ?? '';
+      branchId = prefs.getString('branchId') ?? '';
+      branch_name = prefs.getString('branch_name') ?? '';
+      authId = prefs.getString('authId') ?? '';
+      image = prefs.getString('image') ?? '';
+      address = prefs.getString('address') ?? '';
     });
+  }
+  void _launchInBrowser(String url) async {
+    Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(
+        uri,
+        mode: LaunchMode.platformDefault,
+      );
+    } else {
+      throw 'Could not launch $url';
+    }
   }
   @override
   void initState() {
@@ -48,7 +78,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.white),
-        backgroundColor:Color(0xFF043feb),
+        backgroundColor:AppConstant.appInsideColor,
         title: Text("Peak Me",style: TextStyle(color: Colors.white),),
         actions: [
           IconButton(onPressed: (){
@@ -223,8 +253,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       padding: EdgeInsets.all(16),
                       child: InkWell(
                         onTap: (){
-                          Get.snackbar("Working mode...", "coming soon..",
-                          backgroundColor: Colors.white,);
+                          _launchInBrowser('https://fms.bizipac.com/apinew/secureapi/icici_pre_paid_card_gen.php?user_id=$uid&branch_id=$branchId#!/');
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => IciciPrePaidCardScreen(
+                          //       userId: uid,           // optional, can be null
+                          //       branchId: branchId,         // optional, can be null
+                          //       bizipacLeadId: "789",    // optional, can be null
+                          //       clientLeadId: "1001",    // optional, can be null
+                          //       gpsLat: "28.6129",
+                          //       gpsLng: "77.2295",
+                          //     ),
+                          //   ),
+                          // );
                          // Get.to(()=>ImeiScreen());
                         },
                         child: Column(

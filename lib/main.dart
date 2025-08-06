@@ -1,39 +1,31 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-import 'package:project2/controller/auth_controller.dart';
-import 'package:project2/view/auth/login.dart';
-import 'package:project2/view/dashboard_screen.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:peckme/view/auth/login.dart';
+import 'package:peckme/view/dashboard_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'demo_screen.dart';
-
 void main() async{
-  // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
     runApp( MyApp());
   });
-
 }
 
 class MyApp extends StatelessWidget {
-   MyApp({super.key});
+  const MyApp({super.key});
 
-   Future<bool> isLoggedIn() async {
-     final prefs = await SharedPreferences.getInstance();
-     final uid = prefs.getString('uid');
-     return uid != null && uid.isNotEmpty;
-   }
+  Future<bool> isLoggedIn() async {
+    final prefs = await SharedPreferences.getInstance();
+    final uid = prefs.getString('uid');
+    return uid != null && uid.isNotEmpty;
+  }
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
-
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Peak Me',
@@ -61,4 +53,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

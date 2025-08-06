@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:project2/view/received_lead_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/app_constant.dart';
 import '../auth/login.dart';
+import '../received_lead_screen.dart';
 
 class AdminDrawerWidget extends StatefulWidget {
   const AdminDrawerWidget({super.key});

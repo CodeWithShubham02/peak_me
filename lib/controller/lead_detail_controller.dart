@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:project2/model/lead_detail_model.dart';
 
-import '../handler/EncryptionHandler.dart';
+
+import '../model/lead_detail_model.dart';
 
 class LeadDetailsController{
 

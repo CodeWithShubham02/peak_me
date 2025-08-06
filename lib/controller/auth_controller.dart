@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
-import 'package:project2/model/user_model.dart';
-import 'package:project2/view/auth/forgot.dart';
-import 'package:project2/view/dashboard_screen.dart';
-import 'package:project2/view/profile_screen.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../model/user_model.dart';
+import '../view/dashboard_screen.dart';
 
 
 class AuthService {
@@ -44,6 +44,7 @@ class AuthService {
             final SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.setString('uid', user.uid);
             await prefs.setString('name', user.name);
+            await prefs.setString('userToken', userToken);
             await prefs.setString('mobile', user.mobile);
             await prefs.setString('rolename', user.rolename);
             await prefs.setString('roleId', user.roleId);

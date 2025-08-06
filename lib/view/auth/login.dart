@@ -8,14 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:project2/model/user_model.dart';
-import 'package:project2/utils/app_constant.dart';
-import 'package:project2/view/auth/forgot.dart';
-import 'package:project2/view/dashboard_screen.dart';
+
 
 import '../../controller/auth_controller.dart';
 import '../../controller/get_device_token_controller.dart';
 import '../../controller/otp_controller.dart';
+import '../../utils/app_constant.dart';
+import 'forgot.dart';
 
 class Login extends StatefulWidget {
    Login({super.key});

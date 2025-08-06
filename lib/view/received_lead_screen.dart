@@ -5,14 +5,13 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:project2/controller/receivedLead_controller.dart';
-import 'package:project2/model/new_lead_model.dart';
-import 'package:project2/view/dashboard_screen.dart';
-import 'package:project2/view/lead_detail_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../controller/receivedLead_controller.dart';
+import '../model/new_lead_model.dart';
 import '../utils/app_constant.dart';
+import 'lead_detail_screen.dart';
 
 class ReceivedLeadScreen extends StatefulWidget {
   const ReceivedLeadScreen({super.key});
@@ -51,6 +50,19 @@ class _ReceivedLeadScreenState extends State<ReceivedLeadScreen> {
       await launchUrl(callUri);
     } else {
       print('Could not launch call');
+    }
+  }
+
+  //this code use to open google map from <==> to
+  Future<void> openMap({required double fromLat, required double fromLng, required double toLat, required double toLng}) async {
+    final url = Uri.parse(
+      'https://www.google.com/maps/dir/?api=1&origin=$fromLat,$fromLng&destination=$toLat,$toLng&travelmode=driving',
+    );
+
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch Maps';
     }
   }
 
@@ -169,7 +181,31 @@ class _ReceivedLeadScreenState extends State<ReceivedLeadScreen> {
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            CircleAvatar(backgroundColor:AppConstant.appInsideColor,child: Icon(Icons.location_on, color:Colors.white)),
+                            CircleAvatar(backgroundColor:AppConstant.appInsideColor,
+                                child: InkWell(
+                                  onTap: () async{
+                                    try {
+                                      // 1. Get user current location
+                                     // Position position = await getCurrentLocation();
+
+                                      // 2. Set your destination location (hardcoded or from API)
+                                      double destLat = 28.6139; // Example: Delhi
+                                      double destLng = 77.2090;
+
+                                      // 3. Open Google Maps with directions
+                                      await openMap(
+                                      fromLat: 19.061387,
+                                      fromLng: 72.907494,
+                                      toLat: destLat,
+                                      toLng: destLng,
+                                      );
+                                    } catch (e) {
+                                      print("Error: $e");
+                                    }
+                                  },
+                                    child: Icon(Icons.location_on, color:Colors.white)
+                                ),
+                            ),
                             SizedBox(width: 10),
                             Expanded( // Fixes overflow
                               child: Text(
@@ -205,6 +241,27 @@ class _ReceivedLeadScreenState extends State<ReceivedLeadScreen> {
             );
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppConstant.appInsideColor,
+        onPressed: () {
+          receivedLeadController.fetchLeads(
+            uid: uid,
+            start: 0,
+            end: 10,
+            branchId: branchId,
+            app_version: '40',
+            appType: appType,
+          );
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => ReceivedLeadScreen()),
+          );
+        },
+        child: const Icon(
+          Icons.refresh,
+          color: Colors.white,
+        )
       ),
     );
   }

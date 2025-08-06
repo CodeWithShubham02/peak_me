@@ -1,4 +1,4 @@
-name: project2
+name: peckme
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -53,7 +53,10 @@ dependencies:
   encrypt: ^5.0.3
   url_launcher:
   crypto:
-
+  webview_flutter: ^4.2.2
+  geolocator:
+  geocoding:
+  image_picker:
 
 dev_dependencies:
   flutter_test:
@@ -107,14 +110,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
-flutter_native_splash:
-  color: "#ffffff"
-  image: assets/logo/logo.png
-  color_dark: "#121212"
-  image_dark: assets/logo/logo.png
-
-  android_12:
-    image: assets/logo/logo.png
-    icon_background_color: "#ffffff"
-    image_dark: assets/logo/logo.png
-    icon_background_color_dark: "#121212"

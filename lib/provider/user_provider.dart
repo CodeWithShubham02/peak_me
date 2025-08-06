@@ -1,6 +1,8 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:project2/model/user_model.dart';
+
+
+import '../model/user_model.dart';
 
 class UserProvider extends StateNotifier<UserModel?>{
   // contructore initalizing with default User Object
