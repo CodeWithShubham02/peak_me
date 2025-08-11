@@ -1,13 +1,17 @@
+import 'package:android_intent_plus/android_intent.dart';
+import 'package:android_intent_plus/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:peckme/view/child_executive_screen.dart';
 import 'package:peckme/view/postponed_lead_screen.dart';
 import 'package:peckme/view/refix_lead_screen.dart';
 import 'package:peckme/view/widget/webview_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart' as intent;
 
 import '../controller/lead_detail_controller.dart';
 import '../model/lead_detail_model.dart';
@@ -29,7 +33,15 @@ class _LeadDetailScreenState extends State<LeadDetailScreen> {
 
   Future<LeadResponse?>? _futureLead;
   final platform=const MethodChannel("com.example.peckme/channel1");
+  String user_id = '';
+  void loadUserData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
 
+      user_id = prefs.getString('uid') ?? '';
+
+    });
+  }
   _callNativeMethod({
     required String clientId,
     required String leadId,
@@ -119,12 +131,15 @@ class _LeadDetailScreenState extends State<LeadDetailScreen> {
       });
     }
   }
+
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _futureLead = LeadDetailsController.fetchLeadById(widget.lead.leadId);
     _getLocation();
+    loadUserData();
 
   }
   @override
@@ -148,67 +163,127 @@ class _LeadDetailScreenState extends State<LeadDetailScreen> {
           print("Shubham id :$callDate");
           return SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(6.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(location_lat+location_long),
+                  //Text(location_lat+location_long),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
+                  Card(
+                    color: Colors.white,
+                    elevation: 5,
+                    child: Container(
+                      //color: Colors.white,
+                      height: MediaQuery.of(context).size.height*0.4,
+                      child: Column(
                         children: [
-                          Text("LeadID - ${lead.leadId}", style: const TextStyle(fontWeight: FontWeight.bold)),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text("Lead_id - ", style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 13,color: Colors.black)),
+                                          Text(lead.leadId, style: const TextStyle(fontWeight: FontWeight.normal,color: Colors.black,fontSize: 12)),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text("Client_id - ", style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 13,color: Colors.black)),
+                                        Text(lead.clientId, style: const TextStyle(fontWeight: FontWeight.normal,color: Colors.black,fontSize: 12)),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text("Customer Name - ", style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 13,color: Colors.black)),
+                                          Text(lead.customerName, style: const TextStyle(fontWeight: FontWeight.normal,color: Colors.black,fontSize: 12)),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Text("Address - ", style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 13,color: Colors.black)),
+                                          Expanded(child: Text(lead.resAddress,textAlign:TextAlign.left,maxLines: 6,overflow: TextOverflow.clip, style: const TextStyle(fontWeight: FontWeight.normal,color: Colors.black,fontSize: 12))),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text("Customer Name - ", style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 13,color: Colors.black)),
+                                          Text(lead.customerName, style: const TextStyle(fontWeight: FontWeight.normal,color: Colors.black,fontSize: 12)),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+
+                            ],
+                          ),
                         ],
                       ),
-                      Text("ClienID - ${lead.clientId}", style: const TextStyle(fontWeight: FontWeight.bold)),
-                      //Expanded(child: Text(" ${lead.customerName.toUpperCase()}",style:  TextStyle(fontWeight: FontWeight.bold,fontSize: 13))),
-                    ],
-                  ),
-                  Divider(),
-                  const SizedBox(height: 5),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("${lead.product}", style: const TextStyle(fontWeight: FontWeight.normal)),
-                      Text(" ${lead.source.toUpperCase()}",style: const TextStyle(fontWeight: FontWeight.normal)),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(callDate.toString(), style: const TextStyle(fontWeight: FontWeight.normal)),
-                      Text(" ${lead.empName.toUpperCase()}",overflow:TextOverflow.ellipsis,maxLines:2,style: const TextStyle(fontWeight: FontWeight.normal)),
-                    ],
+                    ),
                   ),
 
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(lead.logo.toString(), style: const TextStyle(fontWeight: FontWeight.normal)),
-                      Text(" ${lead.athenaLeadId.toUpperCase()}",overflow:TextOverflow.ellipsis,maxLines:4,style: const TextStyle(fontWeight: FontWeight.normal)),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(lead.city.toString(), style: const TextStyle(fontWeight: FontWeight.normal)),
-                      Text(" ${lead.appLoc.toUpperCase()}",overflow:TextOverflow.ellipsis,maxLines:2,style: const TextStyle(fontWeight: FontWeight.normal)),
-                    ],
-                  ),
-                  Divider(),
-                  Text("Doc To Callect, Doc By client :", style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
-                  Text("${lead.doc.toUpperCase()}",overflow:TextOverflow.ellipsis,maxLines:10,style: const TextStyle(fontWeight: FontWeight.normal)),
                   Divider(),
                   const SizedBox(height: 12),
                   Row(
@@ -220,44 +295,27 @@ class _LeadDetailScreenState extends State<LeadDetailScreen> {
                         child: Container(
                           width: MediaQuery.of(context).size.width*0.9,
                           child: ElevatedButton(
-                              onPressed: () async{
-                                // String name = '';
-                                // String uid = '';
-                                // String branchId = '';
-                                // String authId = '';
-                                // String userToken='';
-                                // final SharedPreferences prefs = await SharedPreferences.getInstance();
-                                // setState(() {
-                                //   name = prefs.getString('name') ?? '';
-                                //   uid = prefs.getString('uid') ?? '';
-                                //   branchId = prefs.getString('branchId') ?? '';
-                                //   userToken = prefs.getString('userToken') ?? '';
-                                //   authId = prefs.getString('authId') ?? '';
-                                // });
-                                // _callNativeMethod(
-                                //   clientId: lead.clientId,
-                                //   leadId: lead.leadId,
-                                //   sessionId: userToken,
-                                //   amzAppID: lead.athenaLeadId,
-                                //   customerName: lead.customerName,
-                                //   banID:authId,
-                                //   userName:authId,
-                                //   athena_lead_id:lead.athenaLeadId,
-                                //   agentName:name,
-                                //   user_id: uid,
-                                //   branch_id: branchId,
-                                //   auth_id: authId,
-                                //   client_lead_id:lead.athenaLeadId,
-                                //   gpslat:location_lat,
-                                //   gpslong:location_long,
-                                // );
-                              },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:AppConstant.appBattonBack,
+                            onPressed: () async {
+                              List<Map<String, dynamic>> leadData = [];
 
+                              // 2. Iterate through the selectedLeads and format each one
+
+                                leadData.add({
+                                  "leadid": lead.leadId, // Get the lead ID from the current lead object
+                                });
+
+
+                              // 3. Wrap the list in the final parent map
+                              Map<String, dynamic> finalPayload = {
+                                "lead_id": leadData,
+                              };
+                              Get.to(()=>ChildExecutiveScreen(data:finalPayload));
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppConstant.appBattonBack,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                             ),
-                              child:   Text('Transfer Lead'.toUpperCase(), style: TextStyle(color: Colors.white,fontSize: 15,fontWeight:FontWeight.normal)),
+                            child: Text('Transfer Lead'.toUpperCase(),style: TextStyle(color: Colors.white),),
                           ),
                         ),
                       ),

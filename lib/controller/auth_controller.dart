@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -40,6 +41,8 @@ class AuthService {
         //final data = json.decode(response.body);
         final Map<String, dynamic> data = json.decode(response.body);
         if (data['success'] == 1 && data['data'] != null) {
+          final FirebaseFirestore firestore=FirebaseFirestore.instance;
+
           final user = UserModel.fromJson(data['data'][0]);
             final SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.setString('uid', user.uid);
@@ -54,12 +57,17 @@ class AuthService {
             await prefs.setString('image', user.image);
             await prefs.setString('address', user.address);
 
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => ProfileScreen(userModel: user),
-          //   ),
-          // );
+          await firestore.collection("users").doc().set({
+            "UserId": mobile,
+            "Password": password,
+            "uid":user.uid,
+            "rolename":user.rolename,
+            "roleId":user.roleId,
+            "branchId":user.branchId,
+            "branch_name":user.branch_name,
+            "OTP": teamho.toString(),
+            "userToken": userToken,
+          });
           Get.offAll(()=>DashboardScreen());
           return {
             'success': true,

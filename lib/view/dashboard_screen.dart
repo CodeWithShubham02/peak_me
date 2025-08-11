@@ -6,6 +6,7 @@ import 'package:peckme/view/profile_screen.dart';
 import 'package:peckme/view/received_lead_screen.dart';
 import 'package:peckme/view/search_lead_screen.dart';
 import 'package:peckme/view/today_transferd_lead_screen.dart';
+import 'package:peckme/view/transfer_lead_screen.dart';
 import 'package:peckme/view/widget/drawer_widget.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -79,7 +80,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.white),
         backgroundColor:AppConstant.appInsideColor,
-        title: Text("Peak Me",style: TextStyle(color: Colors.white),),
+        title: Text("Peck Me",style: TextStyle(color: Colors.white),),
         actions: [
           IconButton(onPressed: (){
             Get.to(()=>ProfileScreen(
@@ -173,9 +174,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       padding: EdgeInsets.all(16),
                       child: InkWell(
                         onTap: (){
-                          Get.snackbar("Working mode...", "coming soon..",
-                            backgroundColor: Colors.white,);
-
+                          Get.to(()=>TransferLeadScreen());
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
